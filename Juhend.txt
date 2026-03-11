@@ -1,3 +1,4 @@
 Ülesande lahendamiseks saata:
 dokumentatsiooni .pdf
-ülesande .py 
+ülesande .py
+github koodihoidlasse üles laadida
