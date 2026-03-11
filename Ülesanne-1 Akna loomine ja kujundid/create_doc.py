@@ -41,7 +41,7 @@ doc.add_paragraph(
 )
 
 doc.add_heading('GitHub link:', level=2)
-doc.add_paragraph('(Lisa siia oma GitHub repository link)')
+doc.add_paragraph('https://github.com/taivotobreluts/pygame-projektid')
 
 doc.add_heading('Töötasid üksi või meeskonnas?', level=2)
 doc.add_paragraph('Töötasin üksi.')
