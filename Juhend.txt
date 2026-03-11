@@ -1,0 +1,3 @@
+Ülesande lahendamiseks saata:
+dokumentatsiooni .pdf
+ülesande .py 
