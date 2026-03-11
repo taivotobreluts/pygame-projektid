@@ -6,146 +6,125 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 doc = Document()
 
 # Pealkiri
-title = doc.add_heading('Poe müüja programmi dokumentatsioon', 0)
+title = doc.add_heading('TARKVARAARENDUSE PROJEKTI DOKUMENTATSIOON', 0)
 title.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-# Autor
-author = doc.add_paragraph()
-author.alignment = WD_ALIGN_PARAGRAPH.CENTER
-run = author.add_run('Autor: Sinu Nimi')
+# Autor ja ülesanne info
+info = doc.add_paragraph()
+info.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run = info.add_run('\nÜlesanne 2: Tekstide ja piltide kasutamine\n')
+run.font.size = Pt(14)
+run.font.bold = True
+run = info.add_run('Autor: Taivo Tobreluts\n')
 run.font.size = Pt(12)
 run.font.italic = True
 
 doc.add_paragraph()
 
-# Sissejuhatus
-doc.add_heading('1. Sissejuhatus', level=1)
+# 1. Praktilise töö sooritamise käik
+doc.add_heading('1. Praktilise töö sooritamise käik', level=1)
+
+doc.add_heading('Eesmärk:', level=2)
 doc.add_paragraph(
-    'See dokument kirjeldab Pythoni programmi, mis kasutab pygame teeki '
-    'poemüüja kuvamiseks graafilises aknas. '
-    'Programm loob 640×480 piksli suuruse akna, kus kuvatakse poe taust, '
-    'müüja ning jutumull tekstiga.'
+    'Luua PyGame mänguaken, kus kuvatakse poe taust, poemüüja ja jutumull tekstiga. '
+    'Õppida piltide laadimist, skaleerimist ja positsioneerimist. '
+    'Kuvada teksti kindla fondiga jutumulli sees.'
 )
 
-# Nõuded
-doc.add_heading('2. Süsteemi nõuded', level=1)
-doc.add_paragraph('Programmi käivitamiseks on vajalikud järgmised komponendid:')
-nouded = doc.add_paragraph(style='List Bullet')
-nouded.add_run('Python 3.x').bold = True
-nouded = doc.add_paragraph(style='List Bullet')
-nouded.add_run('pygame teek').bold = True
+doc.add_heading('Lühikirjeldus:', level=2)
 doc.add_paragraph(
-    'Pygame saab installida käsuga: pip install pygame'
+    'Programm loob 640×480 piksli suuruse akna. '
+    'Taustapilt (bg_shop.jpg) kuvatakse täiselt. '
+    'Müüja pilt (seller.png, originaal 895×1059 px) vähendatakse 260×330 px peale '
+    'kasutades smoothscale() funktsiooni sakisuse vältimiseks. '
+    'Müüja paigutatakse positsioonile (105, 150). '
+    'Jutumull (chat.png) skaleeritakse 250×200 px peale ja paigutatakse positsioonile (250, 80). '
+    'Tekst "Tere, olen Taivo" kuvatakse valgena blackadderitc fondiga (suurus 36) jutumulli keskele.'
 )
 
-# Kasutatavad failid
-doc.add_heading('3. Kasutatavad failid', level=1)
-doc.add_paragraph('Programm kasutab järgmisi pildifaile:')
-tbl = doc.add_table(rows=4, cols=3)
-tbl.style = 'Light Grid Accent 1'
-hdr_cells = tbl.rows[0].cells
-hdr_cells[0].text = 'Failinimi'
-hdr_cells[1].text = 'Kirjeldus'
-hdr_cells[2].text = 'Kasutus'
+doc.add_heading('GitHub link:', level=2)
+doc.add_paragraph('(Lisa siia oma GitHub repository link)')
 
-row = tbl.rows[1].cells
-row[0].text = 'bg_shop.jpg'
-row[1].text = 'Poe taustapilt (640×480)'
-row[2].text = 'Taust'
+doc.add_heading('Töötasid üksi või meeskonnas?', level=2)
+doc.add_paragraph('Töötasin üksi.')
 
-row = tbl.rows[2].cells
-row[0].text = 'seller.png'
-row[1].text = 'Müüja pilt'
-row[2].text = 'Müüja tegelane'
-
-row = tbl.rows[3].cells
-row[0].text = 'chat.png'
-row[1].text = 'Jutumulli pilt'
-row[2].text = 'Tekstikast'
-
-# Programmi struktuur
-doc.add_heading('4. Programmi struktuur', level=1)
-
-doc.add_heading('4.1. Initsialiseerimine', level=2)
+doc.add_heading('Kas said abi või abistasid kaasõppijat?', level=2)
 doc.add_paragraph(
-    'Programmi alguses initsialiseeritakse pygame ja luuakse aken '
-    'mõõtmetega 640×480 pikslit. Aknale määratakse pealkirja "Ülesanne 2".'
+    'Antud ülesande raames töötasin iseseisvalt. '
+    'Kasutasin õppematerjale ja pygame dokumentatsiooni. '
+    'Võtsin abi AI assistendilt piltide positsioneerimise ja skaleerimise osas.'
 )
 
-doc.add_heading('4.2. Piltide laadimine', level=2)
+doc.add_page_break()
+
+# 2. TI kasutamine
+doc.add_heading('2. TI (tehisintellekti) kasutamine', level=1)
+
+doc.add_heading('Kas kasutasid töö käigus tehisintellekti abi?', level=2)
 doc.add_paragraph(
-    'Programm laeb kolm pildifaili: bg_shop.jpg (taust), seller.png (müüja) '
-    'ja chat.png (jutumull). Müüja pilti vähendatakse, et see mahuks aknasse.'
+    'Jah, kasutasin AI assistenti (Kimi Code CLI) ülesande mõistmiseks, '
+    'piltide positsioneerimise parandamiseks ja dokumentatsiooni vormistamiseks.'
 )
 
-doc.add_heading('4.3. Värvide määramine', level=2)
-doc.add_paragraph('Programmis kasutatakse RGB värvisüsteemi järgmise värviga:')
-tbl2 = doc.add_table(rows=2, cols=3)
-tbl2.style = 'Light Grid Accent 1'
-hdr_cells = tbl2.rows[0].cells
-hdr_cells[0].text = 'Värv'
-hdr_cells[1].text = 'RGB väärtus'
-hdr_cells[2].text = 'Kasutus'
+doc.add_heading('Millist TI-d kasutasid?', level=2)
+doc.add_paragraph('Kimi Code CLI (Kimi AI)')
 
-row = tbl2.rows[1].cells
-row[0].text = 'Valge'
-row[1].text = '(255, 255, 255)'
-row[2].text = 'Tekst jutumullis'
-
-doc.add_heading('4.4. Elementide kuvamine', level=2)
-doc.add_paragraph(
-    'Programm kuvab järgmised elemendid õiges järjekorras:'
-)
-elemendid = [
-    ('Taust', 'bg_shop.jpg kuvatakse täisekraanina (0, 0)'),
-    ('Müüja', 'seller.png kuvatakse vasakus alumises nurgas'),
-    ('Jutumull', 'chat.png kuvatakse müüja kohal'),
-    ('Tekst', 'Valge tekst "Tere, olen Sinu Nimi" jutumulli keskele')
+doc.add_heading('Millised olid esitatud küsimused või käsud (promptid)?', level=2)
+doc.add_paragraph('Näited küsimustest:')
+prompts = [
+    'Kuidas laadida ja kuvada pilte PyGame-s?',
+    'Mis vahe on pygame.transform.scale() ja smoothscale() vahel?',
+    'Kuidas paigutada müüja ja jutumull nii, et see vastaks näidispildile?',
+    'Kuidas kasutada erinevaid fonte PyGame-s?',
+    'Kuidas tsentreerida tekst jutumulli sisse?'
 ]
-for nimi, kirjeldus in elemendid:
+for prompt in prompts:
     p = doc.add_paragraph(style='List Bullet')
-    p.add_run(nimi + ': ').bold = True
-    p.add_run(kirjeldus)
+    p.add_run(prompt).italic = True
 
-# Põhisilmus
-doc.add_heading('5. Põhisilmus (Main Loop)', level=1)
+doc.add_heading('Kuidas hindad saadud abi usaldusväärsust?', level=2)
 doc.add_paragraph(
-    'Pärast graafika joonistamist käivitub põhisilmus, mis hoiab akna avatuna. '
-    'Silmus töötab seni, kuni kasutaja sulgeb akna (pygame.QUIT sündmus). '
-    'See tagab, et programm ei lõpetaks kohe tööd, vaid ootaks kasutaja tegevust.'
+    'Saadud abi oli usaldusväärne. AI soovitas õigesti smoothscale() funktsiooni '
+    'sakise pildi vältimiseks. Piltide positsioneerimisel kontrollisin tulemust '
+    'visuaalselt ja võrdlesin näidispildiga. '
+    'Koodi osas kontrollisin pygame ametliku dokumentatsiooni põhjal, '
+    'kas funktsioonide kasutus on õige. '
+    'Parandasin ise piltide koordinaate, et need paremini näidisele vastaksid.'
 )
 
-# Kasutatud funktsioonid
-doc.add_heading('6. Kasutatud pygame funktsioonid', level=1)
-funktsioonid = [
-    ('pygame.init()', 'Initsialiseerib pygame teegi'),
-    ('pygame.display.set_mode()', 'Loob graafilise akna'),
-    ('pygame.display.set_caption()', 'Määrab akna pealkirja'),
-    ('pygame.image.load()', 'Laeb pildifaili'),
-    ('pygame.transform.scale()', 'Muudab pildi suurust'),
-    ('screen.blit()', 'Kuvab pildi ekraanil'),
-    ('pygame.font.SysFont()', 'Loob fondi teksti jaoks'),
-    ('font.render()', 'Renderdab teksti pildiks'),
-    ('pygame.display.flip()', 'Uuendab ekraani sisu'),
-    ('pygame.event.get()', 'Võtab sündmused järjekorrast'),
-    ('pygame.quit()', 'Lõpetab pygame töö')
-]
-for funktsioon, kirjeldus in funktsioonid:
-    p = doc.add_paragraph(style='List Bullet')
-    p.add_run(funktsioon).bold = True
-    p.add_run(' - ' + kirjeldus)
+doc.add_page_break()
 
-# Järeldus
-doc.add_heading('7. Järeldus', level=1)
+# 3. Esinenud probleemid ja lahendused
+doc.add_heading('3. Esinenud probleemid ja lahendused', level=1)
+
+doc.add_heading('Probleem 1: Piltide sakisus skaleerimisel', level=2)
 doc.add_paragraph(
-    'Antud programm demonstreerib pygame teegi võimalusi piltide ja teksti '
-    'kuvamiseks graafilises aknas. Programm kasutab erinevaid pildifaile '
-    '(taust, tegelane, jutumull) ning lisab neile teksti.'
+    'Probleem: Pildid (müüja ja jutumull) olid pärast skaleerimist sakised ja kõrge kvaliteediga.\n'
+    'Lahendus: Vahetasin pygame.transform.scale() välja pygame.transform.smoothscale() vastu. '
+    'Smoothscale kasutab bilineaarset interpolatsiooni, mis annab sujuvama tulemuse.'
 )
 
+doc.add_heading('Probleem 2: Müüja ja jutumulli paigutamine', level=2)
 doc.add_paragraph(
-    'Edasised täiendused võiksid hõlmata animatsioone, kasutaja interaktsiooni '
-    '(näiteks nupuvajutused) või heliefektide lisamist.'
+    'Probleem: Müüja ja jutumull ei paiknenud samamoodi nagu näidispildil.\n'
+    'Lahendus: Proovisin erinevaid X ja Y koordinaate, kuni leidsin õiged väärtused: '
+    'müüja (105, 150) ja jutumull (250, 80). '
+    'Kasutasin visuaalset kontrolli, et võrrelda tulemust näidispildiga.'
+)
+
+doc.add_heading('Probleem 3: Erinevate fontide kasutamine', level=2)
+doc.add_paragraph(
+    'Probleem: Süsteemi fontidega ei saavutanud soovitud visuaalset tulemust.\n'
+    'Lahendus: Leidsin sobiva fondi (blackadderitc), mis annab dekoratiivse väljanägemise. '
+    'Proovisin erinevaid fontide suuruseid (alustasin 24-st, lõpuks 36) '
+    'et tekst mahuks jutumulli.'
+)
+
+doc.add_heading('Probleem 4: Teksti positsioneerimine jutumullis', level=2)
+doc.add_paragraph(
+    'Probleem: Tekst ei olnud jutumullis keskel.\n'
+    'Lahendus: Kasutasin teksti suuruse mõõtmist ja arvutasin positsiooni nii, '
+    'et tekst oleks jutumulli keskpunkti suhtes tsentreeritud.'
 )
 
 # Salvesta dokument

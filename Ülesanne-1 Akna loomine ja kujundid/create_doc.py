@@ -6,50 +6,129 @@ from docx.enum.text import WD_ALIGN_PARAGRAPH
 doc = Document()
 
 # Pealkiri
-title = doc.add_heading('Foori programmi dokumentatsioon', 0)
+title = doc.add_heading('TARKVARAARENDUSE PROJEKTI DOKUMENTATSIOON', 0)
 title.alignment = WD_ALIGN_PARAGRAPH.CENTER
 
-# Autor
-author = doc.add_paragraph()
-author.alignment = WD_ALIGN_PARAGRAPH.CENTER
-run = author.add_run('Autor: Taivo Tobreluts')
+# Autor ja ülesanne info
+info = doc.add_paragraph()
+info.alignment = WD_ALIGN_PARAGRAPH.CENTER
+run = info.add_run('\nÜlesanne 1: Akna loomine ja kujundid\n')
+run.font.size = Pt(14)
+run.font.bold = True
+run = info.add_run('Autor: Taivo Tobreluts\n')
 run.font.size = Pt(12)
 run.font.italic = True
 
 doc.add_paragraph()
 
-# Sissejuhatus
-doc.add_heading('1. Sissejuhatus', level=1)
+# 1. Praktilise töö sooritamise käik
+doc.add_heading('1. Praktilise töö sooritamise käik', level=1)
+
+doc.add_heading('Eesmärk:', level=2)
 doc.add_paragraph(
-    'See dokument kirjeldab Pythoni programmi, mis kasutab pygame teeki '
-    'liiklustulede (foori) kuvamiseks graafilises aknas. '
-    'Programm loob 300x300 piksli suuruse akna, kus kuvatakse vertikaalne foor '
-    'kolme tulega: punane, kollane ja roheline.'
+    'Luua PyGame graafiline aken, kus kuvatakse liiklustulede (foori) simulatsioon '
+    'kolme erineva värviga tulega: punane, kollane ja roheline. '
+    'Õppida pygame teegi põhifunktsioone ja graafiliste kujundite joonistamist.'
 )
 
-# Nõuded
-doc.add_heading('2. Süsteemi nõuded', level=1)
-doc.add_paragraph('Programmi käivitamiseks on vajalikud järgmised komponendid:')
-nouded = doc.add_paragraph(style='List Bullet')
-nouded.add_run('Python 3.x').bold = True
-nouded = doc.add_paragraph(style='List Bullet')
-nouded.add_run('pygame teek').bold = True
+doc.add_heading('Lühikirjeldus:', level=2)
 doc.add_paragraph(
-    'Pygame saab installida käsuga: pip install pygame'
+    'Programm loob 300×300 piksli suuruse akna musta taustaga. '
+    'Foori raam joonistatakse halli ristkülikuna (100×260 px, joonelaius 2 px), '
+    'mille sisse paigutatakse kolm ringi raadiusega 38 px: punane (ülemine), kollane (keskmine) ja roheline (alumine). '
+    'Programmi lõpus käivitub while-loop, mis hoiab akna avatuna '
+    'kuni kasutaja sulgeb selle (pygame.QUIT sündmus).'
 )
 
-# Programmi struktuur
-doc.add_heading('3. Programmi struktuur', level=1)
+doc.add_heading('GitHub link:', level=2)
+doc.add_paragraph('(Lisa siia oma GitHub repository link)')
 
-doc.add_heading('3.1. Initsialiseerimine', level=2)
+doc.add_heading('Töötasid üksi või meeskonnas?', level=2)
+doc.add_paragraph('Töötasin üksi.')
+
+doc.add_heading('Kas said abi või abistasid kaasõppijat?', level=2)
 doc.add_paragraph(
-    'Programmi alguses initsialiseeritakse pygame ja luuakse aken '
-    'mõõtmetega 300x300 pikslit. Aknale määratakse pealkirja "Foor - Taivo Tobreluts".'
+    'Antud ülesande raames töötasin iseseisvalt. '
+    'Kasutasin õppematerjale ja pygame dokumentatsiooni.'
 )
 
-doc.add_heading('3.2. Värvide määramine', level=2)
-doc.add_paragraph('Programmis kasutatakse RGB värvisüsteemi järgmiste värvidega:')
-tbl = doc.add_table(rows=5, cols=3)
+doc.add_page_break()
+
+# 2. TI kasutamine
+doc.add_heading('2. TI (tehisintellekti) kasutamine', level=1)
+
+doc.add_heading('Kas kasutasid töö käigus tehisintellekti abi?', level=2)
+doc.add_paragraph(
+    'Jah, kasutasin AI assistenti (Kimi Code CLI) ülesande mõistmiseks ja '
+    'dokumentatsiooni vormistamiseks.'
+)
+
+doc.add_heading('Millist TI-d kasutasid?', level=2)
+doc.add_paragraph('Kimi Code CLI (Kimi AI)')
+
+doc.add_heading('Millised olid esitatud küsimused või käsud (promptid)?', level=2)
+doc.add_paragraph('Näited küsimustest:')
+prompts = [
+    'Kuidas luua PyGame akent ja joonistada sinna kujundeid?',
+    'Kuidas tsentreerida foori raam aknas?',
+    'Kuidas joonistada ringe pygame.draw.circle() funktsiooniga?',
+    'Millised on pygame põhivärvide RGB väärtused?'
+]
+for prompt in prompts:
+    p = doc.add_paragraph(style='List Bullet')
+    p.add_run(prompt).italic = True
+
+doc.add_heading('Kuidas hindad saadud abi usaldusväärsust?', level=2)
+doc.add_paragraph(
+    'Saadud abi oli usaldusväärne. AI selgitas pygame funktsioonide kasutamist õigesti. '
+    'Kontrollisin kõik saadud koodinäited pygame ametliku dokumentatsiooni põhjal. '
+    'Koordinaatide arvutamisel ja värviväärtuste määramisel kasutasin enda teadmisi '
+    'kontrollimaks, kas tulemus on loogiline.'
+)
+
+doc.add_page_break()
+
+# 3. Esinenud probleemid ja lahendused
+doc.add_heading('3. Esinenud probleemid ja lahendused', level=1)
+
+doc.add_heading('Probleem 1: Foori raami tsentreerimine aknas', level=2)
+doc.add_paragraph(
+    'Probleem: Kuidas arvutada foori raami X-koordinaat, et see oleks akna keskel?\n'
+    'Lahendus: Kasutasin valemit: raami_x = (akna_laius - raami_laius) // 2. '
+    'See tagab, et raam asub täpselt keskel, sõltumata akna suurusest.'
+)
+
+doc.add_heading('Probleem 2: Ringide paigutamine vertikaalselt', level=2)
+doc.add_paragraph(
+    'Probleem: Kuidas paigutada kolm ringi üksteise alla võrdsete vahedega?\n'
+    'Lahendus: Arvutasin iga ringi Y-koordinaadi raami ülemisest servast lähtudes: '
+    'esimene ring 45 px, teine 130 px, kolmas 215 px kaugusel raami ülaservast. '
+    'X-koordinaat on alati akna keskpunkt (suurus // 2).'
+)
+
+doc.add_heading('Probleem 3: Pygame ühilduvus Python 3.14-ga', level=2)
+doc.add_paragraph(
+    'Probleem: Pygame teek ei toeta 10.03.26 seisuga Python 3.14 versiooni '
+    '(ja paistab, et selle edasine arendus on lõppenud).\n'
+    'Lahendus: Kasutan uuemat PyGame Community Edition repot (pygame-ce), '
+    'mida saab installida käsuga: pip install pygame-ce. '
+    'Repo asub aadressil: https://github.com/pygame-community/pygame-ce'
+)
+
+doc.add_heading('Probleem 4: Akna lahtipüsimine', level=2)
+doc.add_paragraph(
+    'Probleem: Programm lõpetas kohe pärast joonistamist töö.\n'
+    'Lahendus: Lisasin pygame põhisilmuse (main loop), mis töötab seni, '
+    'kuni kasutaja sulgeb akna. Kasutasin while-tsüklit ja pygame.event.get() '
+    'sündmuste jälgimiseks.'
+)
+
+# Lisa: Kasutatud värvide tabel
+doc.add_page_break()
+doc.add_heading('Lisa: Kasutatud värvid', level=1)
+doc.add_paragraph('Programmis defineeritakse värvid RGB süsteemis:')
+
+tbl = doc.add_table(rows=6, cols=3)
 tbl.style = 'Light Grid Accent 1'
 hdr_cells = tbl.rows[0].cells
 hdr_cells[0].text = 'Värv'
@@ -76,35 +155,13 @@ row[0].text = 'Kollane'
 row[1].text = '(255, 255, 0)'
 row[2].text = 'Keskmine tuli'
 
-doc.add_paragraph()
-doc.add_paragraph('Roheline (0, 255, 0) - Alumine tuli')
+row = tbl.rows[5].cells
+row[0].text = 'Roheline'
+row[1].text = '(0, 255, 0)'
+row[2].text = 'Alumine tuli'
 
-doc.add_heading('3.3. Graafiliste elementide joonistamine', level=2)
-doc.add_paragraph(
-    'Programm joonistab järgmised graafilised elemendid:'
-)
-elemendid = [
-    ('Taust', 'Must ristkülik katab kogu akna'),
-    ('Raam', 'Hall ristkülik (100x260 pikslit) tsentreeritud aknas'),
-    ('Punane tuli', 'Ring raadiusega 35 pikslit, ülemine'),
-    ('Kollane tuli', 'Ring raadiusega 35 pikslit, keskmine'),
-    ('Roheline tuli', 'Ring raadiusega 35 pikslit, alumine')
-]
-for nimi, kirjeldus in elemendid:
-    p = doc.add_paragraph(style='List Bullet')
-    p.add_run(nimi + ': ').bold = True
-    p.add_run(kirjeldus)
-
-# Põhisilmus
-doc.add_heading('4. Põhisilmus (Main Loop)', level=1)
-doc.add_paragraph(
-    'Pärast graafika joonistamist käivitub põhisilmus, mis hoiab akna avatuna. '
-    'Silmus töötab seni, kuni kasutaja sulgeb akna (pygame.QUIT sündmus). '
-    'See tagab, et programm ei lõpetaks kohe tööd, vaid ootaks kasutaja tegevust.'
-)
-
-# Kasutatud funktsioonid
-doc.add_heading('5. Kasutatud pygame funktsioonid', level=1)
+# Lisa: Kasutatud pygame funktsioonid
+doc.add_heading('Lisa: Kasutatud pygame funktsioonid', level=1)
 funktsioonid = [
     ('pygame.init()', 'Initsialiseerib pygame teegi'),
     ('pygame.display.set_mode()', 'Loob graafilise akna'),
@@ -117,23 +174,8 @@ funktsioonid = [
 ]
 for funktsioon, kirjeldus in funktsioonid:
     p = doc.add_paragraph(style='List Bullet')
-    p.add_run(funktsioon).bold = True
-    p.add_run(' - ' + kirjeldus)
-
-# Järeldus
-doc.add_heading('6. Järeldus', level=1)
-doc.add_paragraph(
-    'Antud programm demonstreerib pygame teegi põhifunktsionaalsust '
-    'graafiliste kujundite joonistamiseks. Foori näide on hea algus '
-    'graafilise programmeerimise õppimisel, kuna see hõlmab nii '
-    'ristkülikute kui ka ringide joonistamist ning kasutab '
-    'värvide määramist RGB väärtustega.'
-)
-
-doc.add_paragraph(
-    'Edasised täiendused võiksid hõlmata foori tulede vilkumist, '
-    'ajastust või interaktiivsust kasutaja sisendi kaudu.'
-)
+    p.add_run(funktsioon + '\t\t- ').bold = True
+    p.add_run(kirjeldus)
 
 # Salvesta dokument
 doc.save('Foori_dokumentatsioon.docx')

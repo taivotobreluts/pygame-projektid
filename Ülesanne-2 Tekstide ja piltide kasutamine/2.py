@@ -17,32 +17,34 @@ bg_shop = pygame.image.load("bg_shop.jpg")
 seller = pygame.image.load("seller.png")
 chat = pygame.image.load("chat.png")
 
-# Muuda müüja suurust, et see mahuks aknasse
-seller_suurus = (240, 285)
-seller = pygame.transform.scale(seller, seller_suurus)
+# Muuda müüja suurust, et ta mahuks aknasse
+# orig. dimensioonid 895x1059
+# jagan kolmega
+seller_suurus = (260, 330)
+seller = pygame.transform.smoothscale(seller, seller_suurus)
 
 # Muuda jutumulli suurust
-chat_suurus = (300, 238)
-chat = pygame.transform.scale(chat, chat_suurus)
+chat_suurus = (250, 200)
+chat = pygame.transform.smoothscale(chat, chat_suurus)
 
 # Kuva taustapilt
 screen.blit(bg_shop, (0, 0))
 
-# Kuva müüja (paigutame vasakule alla)
-seller_x = 20
-seller_y = korgus - seller_suurus[1] + 20
+# Kuva müüja
+seller_x = 105
+seller_y = 150
 screen.blit(seller, (seller_x, seller_y))
 
 # Kuva jutumull (paigutame müüja kohale)
-chat_x = 180
-chat_y = 50
+chat_x = 250
+chat_y = 80
 screen.blit(chat, (chat_x, chat_y))
 
 # Lisa tekst jutumulli sisse
-font = pygame.font.SysFont("blackadderitc", 29)
-tekst = font.render("Tere, olen Taivo Tobreluts", True, valge)
-tekst_x = chat_x + 32
-tekst_y = chat_y + 90
+font = pygame.font.SysFont("blackadderitc", 36)
+tekst = font.render("Tere, olen Taivo", True, valge)
+tekst_x = chat_x + 35
+tekst_y = chat_y + 70
 screen.blit(tekst, (tekst_x, tekst_y))
 
 # Uuenda ekraani
