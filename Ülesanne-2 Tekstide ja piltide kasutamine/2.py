@@ -43,7 +43,7 @@ screen.blit(chat, (chat_x, chat_y))
 # Lisa tekst jutumulli sisse
 font = pygame.font.SysFont("blackadderitc", 36)
 tekst = font.render("Tere, olen Taivo", True, valge)
-tekst_x = chat_x + 32
+tekst_x = chat_x + 31
 tekst_y = chat_y + 70
 screen.blit(tekst, (tekst_x, tekst_y))
 
