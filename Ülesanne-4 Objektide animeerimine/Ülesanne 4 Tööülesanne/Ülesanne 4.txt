@@ -1,0 +1,12 @@
+Loo vastutulevate autode animatsioon ning loe skoori: punane_auto, sinine_auto, taust
+
+    Loo mäng 640×480 suurusega
+    Lisa taustapilt
+    Lisa ekraani alla keskele punane auto
+    Lisa siniste autode animatsioon ülevalt alla
+        autod jäävad tee vahemikku
+        alustavad erinevatelt kõrgustelt
+        kui auto alla jõuab, hakkab ta uuesti ülevalt alla liikuma
+    Kuva skoor
+        kui sinine auto jõuab alla, lisatakse skoorile punkte juurde
+        arv, mida soovid lisada tekstikasti, tuleb teisendada tekstiks str(number)
